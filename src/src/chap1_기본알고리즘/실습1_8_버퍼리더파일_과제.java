@@ -1,4 +1,4 @@
-package 자료구조;
+package chap1_기본알고리즘;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
@@ -16,7 +16,9 @@ public class 실습1_8_버퍼리더파일_과제 {
         String data3 =  "11 111 9 91 911 23 24 222\n";
         // 파일에 데이터 쓰기
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-        	writer.readLine();
+        	writer.write(data);
+        	writer.write(data2);
+        	writer.write(data3);
 
         } catch (IOException e) {
             System.out.println("파일 쓰기 중 오류 발생: " + e.getMessage());
@@ -26,6 +28,9 @@ public class 실습1_8_버퍼리더파일_과제 {
              
             byte[] buf = new byte[1024];
             int len;
+            while ((len = in.read(buf)) !=-1) {
+            	
+            }
 
             // 파일의 내용을 ByteArrayOutputStream에 읽기
             
@@ -48,7 +53,7 @@ public class 실습1_8_버퍼리더파일_과제 {
     // 정수 배열 출력 함수
     
     public static void main(String[] args) {
-        String filename = "data2.txt";  // 파일 이름 설정 (실제 파일 경로로 변경)
+        String filename = "C:\\java_자료구조\\src\\src\\chap1_기본알고리즘\\data2.txt";  // 파일 이름 설정 (실제 파일 경로로 변경)
 
         // 파일에서 읽어온 문자열 배열을 정렬 후 출력
         String[] sortedStringArray = readSortFromFile(filename);

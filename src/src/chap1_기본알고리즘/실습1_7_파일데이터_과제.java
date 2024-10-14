@@ -1,4 +1,4 @@
-package 자료구조;
+package chap1_기본알고리즘;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
