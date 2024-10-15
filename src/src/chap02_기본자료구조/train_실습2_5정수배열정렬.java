@@ -18,22 +18,23 @@ public class train_실습2_5정수배열정렬 {
 		inputData(data, 10);// 10개의 난수를 입력
 		showData("실수 난수 입력", data);// top 개수 만큼 출력
 
-		reverse(data);//역순으로 재배치 - 교재 67페이지 참조
+		reverse(data);// 역순으로 재배치 - 교재 67페이지 참조
 		showData("역순 재배치", data);
 		System.out.println(Arrays.toString(data));// 교재 84페이지 코드 참조
 		showData("실수 스트링의 정렬", data);
-		sortData(data);//교재 205 bubbleSort() 함수 코드를 사용 - 올림차순으로 정렬 : 왼쪽값이 오른쪽 값 보다 작아야 한다. ex) a[4] < a[5];
+		sortData(data);// 교재 205 bubbleSort() 함수 코드를 사용 - 올림차순으로 정렬 : 왼쪽값이 오른쪽 값 보다 작아야 한다. ex) a[4] <
+						// a[5];
 		showData("버블정렬", data);
 		Random rand = new Random();
-		float realData = rand.nextFloat() ; 
-//		insertData(data, realData);//입력 실수보다 큰 숫자를 우측으로 이동
-//		showData("실수 삽입후", data);
+		float realData = rand.nextFloat();
+		float[] x = insertData(data, realData);// 입력 실수보다 큰 숫자를 우측으로 이동
+		showData("실수 삽입후", x);
 	}
 
 	static void showData(String s, float m[]) {// 실수 배열을 top 갯수만 출력 (top까지만 출력)
 		System.out.println(s);
 		for (int i = 0; i < top; i++) {
-			System.out.print(m[i]+" ");
+			System.out.print(m[i] + " ");
 		}
 		System.out.println();
 	}
@@ -46,33 +47,43 @@ public class train_실습2_5정수배열정렬 {
 			top += 1;
 		}
 	}
-	
-	static void reverse(float[] arr) {//역순으로 재배치 - top 갯수만 역순 재배치 책에 그대로 있음
-			for(int i = 0; i< top/2;i++) {
-				swap(arr,i,top-1-i);
-			}
+
+	static void reverse(float[] arr) {// 역순으로 재배치 - top 갯수만 역순 재배치 책에 그대로 있음
+		for (int i = 0; i < top / 2; i++) {
+			swap(arr, i, top - 1 - i);
 		}
-	
-	static void swap(float[]data, int i, int j) {//교재 67페이지 - 맞교환 그대로 있음
-		float a = data[i]; 
+	}
+
+	static void swap(float[] data, int i, int j) {// 교재 67페이지 - 맞교환 그대로 있음
+		float a = data[i];
 		data[i] = data[j];
 		data[j] = a;
 	}
-	
-	static void sortData(float[] data) {//올림차순으로 정렬 - top 갯수를 사용 (반복문의 end) if < []  비교 변수가 필요
-		for(int i = 0; i< top-1; i++) {
-			for(int j = top-1; j > i; j--) {
-				if(data[j - 1]> data[j]) {
-					swap(data,j - 1,j);
-				}				
+
+	static void sortData(float[] data) {// 올림차순으로 정렬 - top 갯수를 사용 (반복문의 end) if < [] 비교 변수가 필요
+		for (int i = 0; i < top - 1; i++) {
+			for (int j = top - 1; j > i; j--) {
+				if (data[j - 1] > data[j]) {
+					swap(data, j - 1, j);
+				}
 			}
 		}
 
 	}
-	
-	
-//	insertData() {//insert되는 실수 값이 insert될 위치를 찾아 보다 큰 값은 우측으로 이동 
-//
-//	}
+
+	static float[] insertData(float[] data, float num) {// insert되는 실수 값이 insert될 위치를 찾아 보다 큰 값은 우측으로 이동
+		float[] neww = new float[top + 1];
+		int i = 0;
+		while (data[i] < num) {
+			neww[i] = data[i];
+			i++;
+		}
+		neww[i] = num;
+		for (int j = i + 1; j < neww.length; j++) {
+			neww[j] = data[j - 1];
+		}
+		return neww;
+
+	}
 
 }
