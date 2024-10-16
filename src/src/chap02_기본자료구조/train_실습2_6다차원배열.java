@@ -44,12 +44,14 @@ public class train_실습2_6다차원배열 {
 		System.out.println(msg);
 		for(int i = 0; i < items.length; i++) {
 			for(int j = 0; j < items[i].length; j++) {
-				
+				System.out.print(items[i][j]);
 			}
 		}
 
 	}
-	static boolean equals(int[][]a, int[][]b) {
+	static boolean equals(int[][]a, int[][]b) { //해
+		for(int i = 0; i < a.length; i)
+		
 		return false;  
 
 

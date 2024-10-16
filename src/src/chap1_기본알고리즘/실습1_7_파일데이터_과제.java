@@ -20,8 +20,11 @@ public class 실습1_7_파일데이터_과제 {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             // 데이터를 파일에 씀
         	writer.write(data);
+        	writer.newLine();
         	writer.write(data2);
-            
+        	writer.newLine();
+        	System.out.println("파일이 성공적으로 생성되고 데이터가 저장되었습니다.");
+        	
         } catch (IOException e) {
             System.out.println("파일 쓰기 중 오류 발생: " + e.getMessage());
         }
@@ -32,7 +35,7 @@ public class 실습1_7_파일데이터_과제 {
             // 라인을 읽어서 StringBuilder에 추가
         	String r = "";
         	while((r=br.readLine()) != null) {
-        		sb.append(r);
+        		sb.append(r).append(" ");
         	}
             
         } catch (IOException e) {
@@ -51,7 +54,9 @@ public class 실습1_7_파일데이터_과제 {
     public static int[] convertSortToInt(String[] str) {
     	int[] nu = new int[str.length];
     	for(int i = 0; i<str.length;i++) {
-    		nu[i] = Integer.parseInt(str[i]); 
+    		if(str[i] != "") {
+    			nu[i] = Integer.parseInt(str[i]);     			
+    		}
     	}
     	Arrays.sort(nu);
     	return nu;
@@ -73,7 +78,7 @@ public class 실습1_7_파일데이터_과제 {
   
 
     public static void main(String[] args) {
-        String filename = "C:\\Users\\HOME\\OneDrive - 동의대학교\\바탕 화면\\자료구조\\자료구조\\src\\자료구조\\data.txt";  // 파일 이름 설정 (실제 파일 경로로 변경)
+        String filename = "data.txt";  // 파일 이름 설정 (실제 파일 경로로 변경)
 
         // 파일에서 읽어온 문자열 배열을 정렬 후 출력
         String[] sortedStringArray = readSortFromFile(filename);
