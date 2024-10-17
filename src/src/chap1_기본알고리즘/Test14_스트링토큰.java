@@ -1,4 +1,4 @@
-package 자료구조;
+package chap1_기본알고리즘;
 
 //iterator 개념 실습 
 import java.util.StringTokenizer;

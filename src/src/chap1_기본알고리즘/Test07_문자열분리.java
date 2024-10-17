@@ -1,4 +1,4 @@
-package 자료구조;
+package chap1_기본알고리즘;
 
 public class Test07_문자열분리 {
 

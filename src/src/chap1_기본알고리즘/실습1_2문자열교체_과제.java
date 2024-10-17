@@ -1,4 +1,4 @@
-package 자료구조;
+package chap1_기본알고리즘;
 
 public class 실습1_2문자열교체_과제 {
 	
