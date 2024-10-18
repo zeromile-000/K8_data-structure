@@ -8,6 +8,8 @@ public class train_실습2_6다차원배열 {
 		int[][] A = new int[2][3];
 		int[][] B = new int[3][4];
 		int[][] C = new int[2][4];
+		int[][] C2 = new int[2][4];
+		
 
 		inputData(A);
 		inputData(B);
@@ -34,8 +36,15 @@ public class train_실습2_6다차원배열 {
 		System.out.println("F[4][3] = ");
 		showData("행렬 F", F);
 		System.out.println();
-		C = multiplyMatrixTransposed(A, F);
-		showData("행렬 곱셈 결과-전치행렬 사용", C);
+		C2 = multiplyMatrixTransposed(A, F);
+		showData("행렬 곱셈 결과-전치행렬 사용", C2);
+		boolean same = equals(C, C2);
+		if(same) {
+			System.err.println("c와 c2의 결과가 같다");
+		}
+		else {
+			System.err.println("c와 c2의 결과가 다르다.");
+		}
 	}
 
 	static void inputData(int[][] data) { // 랜덤함수를 사용해서 값을 초기화.
@@ -83,9 +92,9 @@ public class train_실습2_6다차원배열 {
 		int[][] z = new int[X.length][Y[0].length];
 		if (X[0].length == Y.length) { // 첫 번째 행렬의 열 수와 두 번째 행렬의 행 수가 같아야 !!
 			for (int i = 0; i < X.length; i++) { // X의 각 행을 순회
-				for (int j = 0; j < X[0].length; j++) { // X의 각 열을 순회
+				for (int j = 0; j < Y[0].length; j++) { // X의 각 열을 순회
 					for (int k = 0; k < Y.length; k++) { // Y의 각 행을 순회
-						z[i][k] += X[i][j] * Y[j][k]; // (X의 현재 행 i)와 (Y의 현재 열 k)의 곱을 계산하여 (z의 해당 위치)에 누적
+						z[i][j] += X[i][k] * Y[k][j]; // (X의 현재 행 i)와 (Y의 현재 열 k)의 곱을 계산하여 (z의 해당 위치)에 누적
 					}
 				}
 			}
