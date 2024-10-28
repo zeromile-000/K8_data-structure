@@ -12,7 +12,7 @@ class 실습5_1_1Factorial2 {
  //--- 음이 아닌 정수 n의 팩토리얼 값을 반환 ---//
  static int factorial(int n) {
 	 //recursive 함수를 간결한 코딩으로 해결 - 학습 요점이다 
-	 System.out.println(n + "* factorial(" + n + "- 1)5");
+	 System.out.println(n + " * factorial(" + n + " - 1)");
      return (n > 0) ? n * factorial(n - 1) : 1;
  }
 
