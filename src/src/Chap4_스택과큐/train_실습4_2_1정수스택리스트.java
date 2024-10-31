@@ -16,11 +16,16 @@ import java.util.Scanner;
 
 //int형 고정 길이 스택
 
+// 스택 클래스 정의(ArrayList, capacity, top)
 class IntStack4 {
 	private List<Integer> stk; // 스택용 리스트
 	private int capacity; // 스택의 크기
 	private int top; // 스택 포인터
 
+	
+	
+	
+	
 //--- 실행시 예외: 스택이 비어있음 ---//
 	public class EmptyIntStackException extends RuntimeException {
 		public EmptyIntStackException(String msg) {

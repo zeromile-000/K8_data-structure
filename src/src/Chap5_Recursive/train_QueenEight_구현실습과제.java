@@ -6,7 +6,7 @@ package Chap5_Recursive;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import Chap5_Recursive.Stack4.EmptyGenericStackException;
 
 //https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/?ref=lbp
 //N Queen problem / backtracking
@@ -75,6 +75,8 @@ class Stack4 {
 
 	// --- 실행시 예외: 스택이 가득 참 ---//
 	public class OverflowGenericStackException extends RuntimeException {
+		private static final long serialVersionUID = 1L;
+
 		public OverflowGenericStackException(String message) {
 			super(message);
 		}
@@ -100,7 +102,7 @@ class Stack4 {
 	}
 
 	// --- 스택에 x를 푸시 ---//
-	public boolean push(Point x) throws OverflowGenericStackException {
+	public void push(Point x) throws OverflowGenericStackException {
 		if (isFull()) // 스택이 가득 참
 			throw new OverflowGenericStackException("push: stack overflow");
 		data.add(x);
@@ -172,7 +174,7 @@ class Stack4 {
 
 // 비재귀로 구현
 public class train_QueenEight_구현실습과제 { // 퀸을 8개 배치하면 끝
-	private static void EightQueen(int[][] d) { // data 배열을 파라미터로 받음 전역변수이고, 반환값은 없음
+	private static void EightQueen(int[][] d) throws EmptyGenericStackException { // data 배열을 파라미터로 받음 전역변수이고, 반환값은 없음
 		int numberOfSolutions = 0; // numberOfSolutions으로 초기화.
 		int count = 0;// 퀸 배치 갯수
 		int ix = 0, iy = 0;// 행 ix, 열 iy
@@ -215,21 +217,18 @@ public class train_QueenEight_구현실습과제 { // 퀸을 8개 배치하면 �
 		for (int i = 0; i < d.length; i++) {
 			if (d[crow][i] == 1) { // d 배열의 crow행 i열에 퀸이 있다면
 				return false; // false를 반환
-			} else {
-				return true; // 아니면 true를 반환
 			}
 		}
+		return false;
 	}
 
 	public static boolean checkCol(int[][] d, int ccol) {// 배열 d에서 열 ccol에 퀸을 배치할 수 있는지 조사
 		for (int i = 0; i < d.length; i++) {
 			if (d[i][ccol] == 1) { // d 배열의 i행 ccol에 퀸이 있다면
 				return false; // false를 반환
-			} else {
-				return true; // 아니면 true를 반환
 			}
 		}
-
+		return true;
 	}
 	// -------------- 대각선 이동 유효성 검사
 	// -------------------------------------------------------------------------------------------
@@ -238,9 +237,31 @@ public class train_QueenEight_구현실습과제 { // 퀸을 8개 배치하면 �
 	// while 루프 2개 사용, 0 <= x,y <= 7범위값
 	// cx ++ 행 증가,
 	public static boolean checkDiagSW(int[][] d, int cx, int cy) { // x++, y-- or x--, y++ where 0<= x,y <= 7
-		while (cx <= 7 && 0 <= cy) {
-			cx++; // 행 증가
-			cy--; // 열 감소
+		int x = cx;
+		int y = cy;
+		
+		while (x <= 7 && 0 <= y) {
+			x++; // 행 증가
+			y--; // 열 감소
+			if (d[x][y] == 1) {
+				return false;
+			}
+		}
+		while (y <= 7 && 0 <= x) {
+			x--; // 행 감소
+			y++; // 열 증가
+			if (d[x][y] == 1) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+//배열 d에서 행 cx, 열 cy에 퀸을 남동, 북서 대각선으로 배치할 수 있는지 조사
+	public static boolean checkDiagSE(int[][] d, int cx, int cy) {// x++, y++ or x--, y--
+		while (cy <= 7 && 0 <= cx) {
+			cy++; // 열 증가
+			cx--; // 열 감소
 			if (d[cx][cy] == 1) {
 				return false;
 			}
@@ -253,10 +274,7 @@ public class train_QueenEight_구현실습과제 { // 퀸을 8개 배치하면 �
 			}
 		}
 		return true;
-	}
-
-//배열 d에서 행 cx, 열 cy에 퀸을 남동, 북서 대각선으로 배치할 수 있는지 조사
-	public static boolean checkDiagSE(int[][] d, int cx, int cy) {// x++, y++ or x--, y--
+		
 
 	}
 
