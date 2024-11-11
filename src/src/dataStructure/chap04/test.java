@@ -1,4 +1,4 @@
-package Chap8_List;
+package dataStructure.chap04;
 //단순한 linked list에서 insert, delete하는 알고리즘을 코딩: 1단계
 
 import java.util.Random;
@@ -41,28 +41,28 @@ class LinkedList1 {
 
 	// first : 헤드, newNode : 새로운 객체, p : 현재 데이터, q : 이전 노드에 대한 참조
 	public void Add(int element) { // 임의 값을 삽입할 때 리스트가 오름차순으로 정렬이 되도록 한다.
-		Node1 newNode = new Node1(element); // 난수 생성 개수 만큼 객체 생성
-		if (first == null) { // insert into empty list
-			first = newNode; // 현재 노드
+		Node1 newNode = new Node1(element);
+		if(first == null) { // 헤드가 null이면
+			first = newNode; // 새로운 객체노드를 
 		} else {
-			Node1 p = first, q = null; // p에 head를 대입, q를 null로 초기화
-			while (p != null) { // p의 값이 null이 아닐떄까지 반복
-				if (element > p.data) { // 삽입하려는 요소가 현재 노드의 데이터보다 크면
-					q = p; // 현재 노드의 정보를 q에 대입 후
-					p = p.link; // 다음노드로 이동
-					if(p==null) {
-						q.link = newNode;
+			Node1 next = first, before = null;
+			while(next != null) {
+				if(element > next.data) {
+					before = next;
+					next = next.link;
+					if(next == null) {
+						next.link = newNode;
 						return;
 					}
-					continue; // 건너뛰기
-				} else { // 삽입하려는 요소가 현재 노드의 데이터보다 작으면
-					if(q==null) {
-						newNode.link = p;
+					continue;
+				} else {
+					if(before == null) {
+						newNode.link = next;
 						first = newNode;
 						return;
 					}
-					q.link = newNode; // 요소를 이전 노드의 link에 대입 후
-					newNode.link = p; // p를 요소의 참조 link에 대입한다.
+					before.link = newNode;
+					newNode.link = next;
 					return;
 				}
 			}
@@ -84,7 +84,7 @@ class LinkedList1 {
 	}
 }
 
-public class 실습9_1정수연결리스트 {
+public class test {
 	enum Menu {
 		Add("삽입"), Delete("삭제"), Show("인쇄"), Search("검색"), Merge("합병"), Exit("종료");
 

@@ -11,9 +11,15 @@ class PhyscData implements Comparable<PhyscData>{
 	int height;
 	double vision;
 
+	public PhyscData(String name, int height, double vision) {
+		this.name = name;
+		this.height = height;
+		this.vision = vision;
+		
+	}
 	@Override
 	public String toString() {//Object 클래스 상속
-		return " ";
+		return "name = " + name + "height = " + height + "vision = " + vision;
 	}
 	@Override
 	public int compareTo(PhyscData p) {
@@ -56,8 +62,12 @@ public class train_실습2_14_1객체배열정렬 {
 		showData("삽입후", newData);
 		
 	}
-	showData() {
-
+	public static void showData(String msg,PhyscData[] data) {
+		System.out.println(msg);
+		for(PhyscData da: data) {
+			System.out.println(da);
+		}
+			
 	}
 	insertObject(){//배열의 사이즈를 1개 증가시킨후 insert되는 스트링 보다 큰 값들은 우측으로 이동, 사이즈가 증가된 스트링 배열을 리턴
 		

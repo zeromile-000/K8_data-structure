@@ -175,19 +175,19 @@ class Stack4 {
 // 비재귀로 구현
 public class train_QueenEight_구현실습과제 { // 퀸을 8개 배치하면 끝
 	private static void EightQueen(int[][] d) throws EmptyGenericStackException { // data 배열을 파라미터로 받음 전역변수이고, 반환값은 없음
-		int numberOfSolutions = 0; // 문제 해의 개수
+		int numberOfSolutions = 0; // numberOfSolutions으로 초기화.
 		int count = 0;// 퀸 배치 갯수
 		int ix = 0, iy = 0;// 행 ix, 열 iy
 		Stack4 st = new Stack4(100); // 100개를 저장할 수 있는 스택을 만들고
 		Point p = new Point(ix, iy);// 현 위치를 객체로 만들고
-		d[ix][iy] = 1;// 현 위치에 queen을 놓았다는 표시를 하고
+		d[ix][iy] = 1;// 현 위치에 queen을 넣었다는 표시를 하고
 		count++; // 퀸 배치 개수를 +
 		st.push(p);// 스택에 현 위치 객체를 push
-		ix++;// ix는 행별 퀸 배치 
+		ix++;// ix는 행별로 퀸 배치되는 것을 말한다.
 		iy = 0;// 다음 행으로 이동하면 열은 0부터 시작
 
 		while (true) { // 퀸을 반복배치
-			if (st.isEmpty() && ix == 8) // ix가 8이면 8개 배치 완료, stack이 empty가 아니면 다른 해를 구한다
+			if (st.isEmpty() && iy == 8) // ix가 8이면 8개 배치 완료, stack이 empty가 아니면 다른 해를 구한다
 				break;
 			if ((iy = nextMove(d, ix, iy)) == -1) {// 다음 이동할 열을 iy로 주는데 -1이면 더이상 이동할 열이 없음을 나타냄
 
@@ -196,24 +196,32 @@ public class train_QueenEight_구현실습과제 { // 퀸을 8개 배치하면 �
 				iy = p.getIy(); // p의 iy 좌표를 iy에 대입
 				d[ix][iy] = 0;
 				count--;
-				System.out.println("ix="+ix + "  iy =" + iy);
+//				System.out.println("ix="+ix + "  iy =" + iy);
 				iy++; // iy(열) 증가
 				continue; // 건너뜀
 
 			}
-			System.out.println("nextmove after = ix="+ix + "  iy =" + iy);
+//			System.out.println("nextmove after = ix="+ix + "  iy =" + iy);
 			d[ix][iy] = 1; // 퀸의 현재위치를 체크
 			p = new Point(ix, iy); // 현재 위치에 새로운 객체 생성
 			st.push(p); // p객체를 스택에 push
 			ix++; // ix(행) 증가
 			iy = 0; // 열을 초기화
 			count++;
+			
+			
 			if (count == 8) { // 8개를 모두 배치하면
-				
-				break;
-
+				numberOfSolutions++;
+				showQueens(d);
+				p = st.pop();
+			    ix = p.getIx();
+			    iy = p.getIy();
+			    d[ix][iy] = 0;
+			    count--;
+			    iy++;
+			    System.out.println(numberOfSolutions + "번쨰 해 -------------------");	
+			    continue;
 			}
-
 		}
 	}
 
@@ -303,14 +311,13 @@ public class train_QueenEight_구현실습과제 { // 퀸을 8개 배치하면 �
 		boolean se= checkDiagSE(d,x,y); // 대각선 유효성 검사 1
 		boolean sw = checkDiagSW(d,x,y); // 대각선 유효성 검사 2
 		
-		if(row & col & se & sw) { // 만약 가로, 세로, 대각선1, 대각선2의 유효성검사 결과 배치가 가능하다면 true 아니면 false를 반환
+		if(row && col && se && sw) { // 만약 가로, 세로, 대각선1, 대각선2의 유효성검사 결과 배치가 가능하다면 true 아니면 false를 반환
 			return true;
 		} return false;
 	}
 
 //배열 d에서 현재 위치(row,col)에 대하여 다음에 이동할 위치 nextCol을 반환, 이동이 가능하지 않으면 -1를 리턴 
 	public static int nextMove(int[][] d, int row, int col) {// 현재 row, col에 대하여 이동할 col을 return  , row는 고정 col로만 이동, check move 호출
-
 		for(int i = col; i < d.length; i++) {
 			if(checkMove(d, row, i)) {
 				return i;
@@ -322,11 +329,10 @@ public class train_QueenEight_구현실습과제 { // 퀸을 8개 배치하면 �
 	static void showQueens(int[][] data) {// 배열 출력
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {
-				System.out.println(data[i][j] + " ");
+				System.out.print(data[i][j] + "  ");
 			}
 			System.out.println();
 		}
-
 	}
 
 	public static void main(String[] args) throws EmptyGenericStackException {
